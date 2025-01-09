@@ -2,11 +2,8 @@ const mongoose=require("mongoose");
 
 const tschema=new mongoose.Schema({
   desc:String,
-  deadline:String,
   completion:Boolean,
- 
 })
-
 
 const taskSchema=mongoose.Schema({
   user_id:{
