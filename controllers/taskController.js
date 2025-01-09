@@ -5,7 +5,6 @@ const taskmodel=require("../models/taskModel");
 
 const getTask=asyncHandler( async (req,res)=>{
   
-    console.log("function is running")
     const task=await taskmodel.findById(req.params.id);
    
     if(!task){
