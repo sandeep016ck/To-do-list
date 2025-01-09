@@ -41,11 +41,31 @@ const userLogin=asyncHandler( async(req,res)=>{
   }
 })
 
+const getUser = asyncHandler(async (req, res) => {
+  const token = req.headers['authorization'];
+
+  if (!token) {
+    return res.status(401).json({ message: "No token provided" });
+  }
+
+  try {
+    const decoded = await jwt.verify(token, process.env.SECRET_KEY);
+    if (decoded && decoded.user) {
+      const username = decoded.user.username;
+      return res.json({ user: username });
+    } else {
+      return res.status(400).json({ message: "Invalid token" });
+    }
+  } catch (err) {
+    return res.status(400).json({ message: "User unauthorized" });
+  }
+});
 
 
 
 
 module.exports={
   createUser,
-  userLogin
+  userLogin,
+  getUser
 }
