@@ -1,27 +1,21 @@
-
-
 const expressAsyncHandler = require("express-async-handler");
-const jwt=require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
-const verification=expressAsyncHandler(async (req,res,next)=>{
+const verification = expressAsyncHandler(async (req, res, next) => {
   let token;
-  const accesstoken=req.headers['authorization'];
-  if(accesstoken && accesstoken.startsWith("Bearer")){
-     token=accesstoken.split(' ')[1];
-    jwt.verify(token,process.env.SECRET_KEY,(err,decode)=>{
-      if(err){
-        res.status(400).json({message:"user unauthorized"})
-      }
-      req.user=decode.user;
-      next();
-    })
+  const accesstoken = req.headers['authorization'];
+  if (accesstoken) {
+    token = accesstoken;
+    try {
+      const decoded = await jwt.verify(token, process.env.SECRET_KEY);
+      req.user = decoded.user;
+      return next();
+    } catch (err) {
+      return res.status(400).json({ message: "User unauthorized" });
+    }
+  } else {
+    return res.status(400).json({ message: "User is not authorized" });
   }
+});
 
-  if(!token){
-    res.status(400).json({message:"user is not authorized"})
-  }
-  
-})
-
-
-module.exports=verification;
+module.exports = verification;
