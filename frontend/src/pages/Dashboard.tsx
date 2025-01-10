@@ -8,6 +8,7 @@ import { BACKEND_URL } from "../config";
 import { Todo } from "../icons/Todo";
 import { useFetchTodos } from "../hooks/useFetchTodos";
 import BackImg from "../assets/pexels-snapwire-6992.jpg"
+import Logo from "../assets/file.png"
 
 export function Dashboard() {
   const navigate = useNavigate();
@@ -66,12 +67,19 @@ export function Dashboard() {
       <div className="relative bg-white/10 backdrop-blur-lg border border-white/30 rounded-full shadow-xl p-4 h-20 w-[80%]">
         <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-full border border-white/20" aria-hidden="true"></div>
         <div className="flex justify-between items-center text-white">
-          <h1 className="text-2xl font-bold flex items-center gap-2 text-black">Todo App <TodoIcon /></h1>
+          <div className="flex items-center gap-2">
+            <div className="">
+              <img className="h-9" src={Logo} />
+            </div>
+            <div className="text-2xl font-bold text-black ">
+             Todo App 
+            </div>
+            </div>
           <div className="relative">
             {validUser ? (
               <div className="flex gap-2 items-center">
                 <div className="font-bold text-lg pr-2 text-black">
-                  Welcome <span className=" text-slate-700 font-mono">"{username}"</span>
+                  Welcome <span className=" text-slate-700 font-mono underline underline-offset-1">{username}</span>
                 </div>
                 <div> 
                   <button

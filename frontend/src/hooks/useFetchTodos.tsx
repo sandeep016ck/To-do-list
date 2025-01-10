@@ -17,16 +17,16 @@ export function useFetchTodos(){
         })
     }
 
-    useEffect(() => {
-        refresh()
-        const interval = setInterval(() => {
-            refresh()
-        },3 * 1000)
+    // useEffect(() => {
+    //     refresh()
+    //     const interval = setInterval(() => {
+    //         refresh()
+    //     },3 * 1000)
 
-        return () => {
-            clearInterval(interval)
-        } 
-    },[])
+    //     return () => {
+    //         clearInterval(interval)
+    //     } 
+    // },[])
 
     return {todos, refresh}
 
